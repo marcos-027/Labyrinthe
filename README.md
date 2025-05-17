@@ -7,7 +7,6 @@ Ce que ce code fait c'est de basiquement compter les virages/angles : + ou - qua
 
 # Librairies
 
-maprincess  https://github.com/GBSL-Informatik/maqueen-plus-v2-mpy/tree/main 
-(Minifier avec https://pyminifier3.readthedocs.io/en/latest/)
+maqueen @see https://github.com/DFRobot/pxt-DFRobot_MaqueenPlus_v20/blob/master/maqueenPlusV2.ts
  
 protocole   https://gitedu.hesge.ch/info_sismondi/oc-robotique/-/tree/main/Protocole
