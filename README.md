@@ -1,5 +1,8 @@
 # Labyrinthe
 
+![image](https://github.com/user-attachments/assets/4af73e75-791f-41cd-ae67-132728abe802)
+
+
 # Algorithme
 1) Le Robot va longer le mur de droite. 
  
