@@ -1,7 +1,11 @@
 # Labyrinthe
 
 # Algorithme
-Le Robot va longer le mur de droite en stockant le temps et les directions dans les quelles il tourne pour les envoyés dans un payload à un second robot qui refera le même chemin avec une plus grande vitesse
+1) Le Robot va longer le mur de droite. 
+ 
+2) Algorithme de Pledge, Il permet de sortir d’un labyrinthe en suivant un mur tout en gardant une direction de référence. Il utilise un compteur d’angles pour savoir quand reprendre cette direction dès que l'obstacle est contourné.
+
+Dans les deux cas le robot avancera dans le labyrinthe en stockant le temps et les directions dans les quelles il tourne pour les envoyés dans un payload à un second robot qui refera le même chemin avec une plus grande vitesse
 
 # Librairies
 
