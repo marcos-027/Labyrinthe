@@ -10,7 +10,7 @@
 
 (Dans les deux cas le robot avancera dans le labyrinthe en stockant le temps et les directions dans les quelles il tourne pour les envoyés dans un payload à un second robot qui refera le même chemin avec une plus grande vitesse) 
  
-=> Implémentation de l'échange avec un autre robot pas terminée par manque de temps et place dans la microbit :(
+=>Implémentation de l'échange avec un autre robot pas terminée par manque de temps et place dans la microbit :(
 
 # Librairies
 
