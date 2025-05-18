@@ -2,14 +2,12 @@ from microbit import *
 import maqueen
 import time
 
-
 # Constantes 
 SPEED = 15
 TURNING_SPEED = 30
 TURN_TIME = 2000  
 WHITE = 0
 BLACK = 1
-
 
 # Variables de l'algorithme
 turn_counter = 0       # Compteur de virages pour Pledge
