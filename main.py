@@ -12,7 +12,7 @@ o|.............|o
 
 '''
 from maprincess import *
-from microbit import *
+import microbit
 import utime
 
 WHITE = 0
@@ -33,7 +33,7 @@ def tourner_gauche():
     led_rgb(Color.RED)
     microbit.display.show("G")
     motor_stop()
-    sleep(200)
+    microbit.sleep(200)
     while line_sensor_data(LineSensor.R1) < 120 and line_sensor_data(LineSensor.L1) < 120 and line_sensor_data(LineSensor.M) < 120:
         motor_run(Motor.LEFT, TURNING_SPEED, 1)
         motor_run(Motor.RIGHT, TURNING_SPEED)
@@ -43,22 +43,22 @@ def tourner_droite():
     led_rgb(Color.GREEN)
     microbit.display.show("D")
     motor_stop()
-    sleep(200)
-    while line_sensor_data(LineSensor.R2) < 180:  # R2 = L2 mal défini dans la librairie
-        motor_run(Motor.LEFT, SPEED)
-        motor_run(Motor.RIGHT, 0)
+    microbit.sleep(200)
+    while line_sensor_data(LineSensor.L2) > 200:  # R2 = L2 mal défini dans la librairie
+        motor_run(Motor.LEFT, TURNING_SPEED)
+        motor_run(Motor.RIGHT, TURNING_SPEED, 1)
     motor_stop()
 
 while True:
-    if line_sensor_data(LineSensor.L2) < 120:  # L2 = R2 mal défini dans la librairie
+    if line_sensor_data(LineSensor.L2) < 50:  # L2 = R2 mal défini dans la librairie
         motor_run(Motor.ALL, SPEED)
         microbit.display.show("T")
         print("T")
 
-    if line_sensor_data(LineSensor.R1) < 120 or line_sensor_data(LineSensor.L1) < 120 or line_sensor_data(LineSensor.M) < 120:
+    if line_sensor_data(LineSensor.R1) < 50 or line_sensor_data(LineSensor.L1) < 50 or line_sensor_data(LineSensor.M) < 50:
         tourner_gauche()
         print("G")
         
-    if line_sensor_data(LineSensor.L2) > 180:
+    if line_sensor_data(LineSensor.L2) > 200:
         tourner_droite()
         print("D")
