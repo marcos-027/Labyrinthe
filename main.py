@@ -1,64 +1,77 @@
-''' Auteur(s)   : Elias Atlab et Marcos Vinicius de Castro de facanha
-    Librairie   : https://github.com/marcos-027/Labyrinthe
-    Date        : 18 mai 2025
-    Version     : 0.5
-    Description : résolution de labyrinth en suivant le mur de droit
+''' 
+Auteur(s)   : Elias Atlab et Marcos Vinicius de Castro de Facanha  
+Librairie   : https://github.com/marcos-027/Labyrinthe  
+Date        : 21 mai 2025  
+Version     : 1.0  
+Description : Résolution de labyrinthe en suivant le mur de droite  
 
    /''''^''''\
   /  L1 M R1  \
  |             |
- |L2         R2|
+ |L2         R2|  <- L2 = R2 (inversé dans la librairie)
 o|.............|o
-
 '''
+
 from maprincess import *
-import microbit
+from microbit import *
 import utime
 
+# Constantes
+SPEED = 25
+TURNING_SPEED = 50
 WHITE = 0
 BLACK = 1
 
-
-SPEED = 15
-TimeToTurnRight = 2000
-TimeToTurnLeft = 2000
-TURNING_SPEED= 30
-
-# line_sensor_data_all() renvoie valeur rgb 0;255 ATTENTION L2 et R2 inversé dans la librairie
-
+# Initialisation
 led_rgb(Color.WHITE)
-microbit.display.on()
-    
+display.on()
+
+# Fonctions de virage
 def tourner_gauche():
     led_rgb(Color.RED)
-    microbit.display.show("G")
-    motor_stop()
-    microbit.sleep(200)
-    while line_sensor_data(LineSensor.R1) < 120 and line_sensor_data(LineSensor.L1) < 120 and line_sensor_data(LineSensor.M) < 120:
+    display.show("G")
+    
+    # Tourne jusqu'à détecter une ligne
+    while (line_sensor_data(LineSensor.R1) < 120 or
+           line_sensor_data(LineSensor.L1) < 120 or
+           line_sensor_data(LineSensor.M) < 120):
         motor_run(Motor.LEFT, TURNING_SPEED, 1)
         motor_run(Motor.RIGHT, TURNING_SPEED)
-    motor_stop()
     
+
 def tourner_droite():
     led_rgb(Color.GREEN)
-    microbit.display.show("D")
-    motor_stop()
-    microbit.sleep(200)
-    while line_sensor_data(LineSensor.L2) > 200:  # R2 = L2 mal défini dans la librairie
+    display.show("D")
+    
+    
+    # Tourne jusqu'à retrouver la ligne à droite (capteur L2 = R2)
+    while line_sensor_data(LineSensor.L2) > 200:
         motor_run(Motor.LEFT, TURNING_SPEED)
         motor_run(Motor.RIGHT, TURNING_SPEED, 1)
-    motor_stop()
+    
 
+# Boucle principale
 while True:
-    if line_sensor_data(LineSensor.L2) < 50:  # L2 = R2 mal défini dans la librairie
-        motor_run(Motor.ALL, SPEED)
-        microbit.display.show("T")
-        print("T")
+    r2 = line_sensor_data(LineSensor.L2)  # R2 (mal étiqueté dans la lib)
+    r1 = line_sensor_data(LineSensor.R1)
+    l1 = line_sensor_data(LineSensor.L1)
+    m = line_sensor_data(LineSensor.M)
 
-    if line_sensor_data(LineSensor.R1) < 50 or line_sensor_data(LineSensor.L1) < 50 or line_sensor_data(LineSensor.M) < 50:
+    # 2. Si un mur est en face, on tourne à gauche
+    if r1 < 120 or l1 < 120 or m < 120:
         tourner_gauche()
         print("G")
-        
-    if line_sensor_data(LineSensor.L2) > 200:
+    
+    # 1. Si le mur de droite a disparu, on tourne à droite
+    elif r2 > 200:
         tourner_droite()
         print("D")
+
+    # 3. Sinon, on avance
+    else:
+        motor_run(Motor.ALL, SPEED)
+        led_rgb(Color.WHITE)
+        display.show("T")
+        print("T")
+
+    sleep(100)  # petite pause pour stabiliser les lectures
